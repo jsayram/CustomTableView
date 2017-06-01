@@ -5,6 +5,9 @@
 //  Created by jose ramirez on 6/1/17.
 //  Copyright © 2017 Jose Ramirez. All rights reserved.
 
+
+//make sure you tableView is connected to the viewcontroller class from the connection inspector,under outlets.
+
 /* In order to set this tableView to put anything you want
  //Step 1: The first step is to create a custom UITableViewCell subclass.
             So you can go to file, new, file. Under IOS, choose Cocoa Touch Class and hit next.
@@ -30,9 +33,18 @@
        It should update just like it did before, except for now we're using a custom subclass, and we can add other user-interface elements and organize them however we like.
  
 */
-import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource {
+
+/*2.) Supporting when a row is selected by adding a connection to the delagate class, this controlls interactivity.
+    Step 1: go to story board, select your tableView, then go to the "Connections Inspector (->)" , from there make the connection form the delagate in the outlet section to your viewcotroller "yello circle with square inside". Once done so you should see (delegates) -----> (x View Controller)
+ Step 2: add UITableViewDelegate, then to support when is selected, right above didRecieveMemoryWarning()  method, add func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) { <#code#>}
+*/
+
+
+
+import UIKit
+                                                        //Step 2 addUITableViewDelegate
+class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegate {
     let data:[[String]] = [["Item 1","Item 2", "Item 3"],
                            ["Item A","Item B", "Item C"]]
     let headers:[String] = ["Numbered","Lettered"]
@@ -62,7 +74,10 @@ class ViewController: UIViewController, UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return headers[section]
     }
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //step2 to confirm it works just print out the selected the path , which is the same as line 69
+        print("\(data[indexPath.section][indexPath.row])")
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
